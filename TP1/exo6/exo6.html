@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <SCRIPT LANGUAGE="Javascript" SRC="point.js"></SCRIPT>
+        <script type="text/javascript">
+            var aCanvas;
+            var point1;
+
+            function setup()
+			{
+                aCanvas=document.getElementById('myCanvas');
+                point1=new Point(100,100,aCanvas);
+                point1.ache(player.currentTime);
+            }
+
+            function jouer()
+            {
+               player.play();
+               setInterval(setup, 100)
+            }
+
+        </script>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="200" height="200" style="border-style:solid"></canvas>
+        <audio id="player">
+        <source type="audio/mp3" src="AsianTravel.mp3"/>
+        Your  browser does not support HTML5 audio.
+        </audio>
+        <div>
+                <button type="button" onclick="jouer()">
+                    Play
+                </button>
+        </div>
+    </body>
+</html>

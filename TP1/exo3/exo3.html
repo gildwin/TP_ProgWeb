@@ -1,0 +1,21 @@
+<html>
+	<head>
+	<script type="text/javascript">
+		function init()
+		{
+			//Regarder mdn si besoin de renseignement
+			laDiv1=document.createElement('div');//div est le type d'élément créé
+			laDiv1.setAttribute('id','div2');//On met à jour l'identifiant de l'élément
+			laDiv2=document.getElementById('div2');
+			laDiv1.setAttribute('style',"border-color:red; border-style: dotted;");
+			laDiv2.appendChild(laDiv1);
+			//Faire document.get pour voir les critères de sélection
+		}
+	</script>
+	</head>
+	<body onload='init()'>
+		<div id='div2' style="border-color:black; border-style: solid;">
+			Bonjour à tous
+		</div>
+	</body>
+</html>
