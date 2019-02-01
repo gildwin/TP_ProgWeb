@@ -10,7 +10,6 @@
             function Decreasing(){
                 if(globaltimer>=0){
                     document.getElementById("cpt").innerHTML = "compteur = "+globaltimer;
-                    console.log(globaltimer);
                     globaltimer = globaltimer - 1;
                 }
                 else{
@@ -18,64 +17,10 @@
                 }
             }
         }
-
-        function q2(){
-            var x = 0;
-            var y = 0;
-            var forme = document.getElementById("forme");
-            var ctx = forme.getContext("2d");
-            ctx.fillStyle = "red";
-            var timer = setInterval(MovingSquare,10);
-
-            function draw(color){
-                ctx.fillStyle = color;
-                ctx.fillRect(x,y,100,100);
-            }
-            function MovingSquare(){
-                draw("white");
-                x = x + 10;
-                draw("red");
-                ctx.fillRect(x,y,100,100);
-                if(x>=1800){
-                    clearInterval(timer);
-                }
-            }
-        }
-        function q3(){
-            var x = 0;
-            var y = 0;
-            var forme = document.getElementById("forme");
-            var ctx = forme.getContext("2d");
-            ctx.fillStyle = "red";
-            var cpt = 2;
-            var timer = setInterval(wait,1000);
-
-            function wait(){
-                cpt = cpt - 1;
-                if(cpt<0){
-                    clearInterval(timer);
-                    var timerbis = setInterval(MovingSquare,10);
-                }
-                
-            }
-            function draw(color){
-                ctx.fillStyle = color;
-                ctx.fillRect(x,y,100,100);
-            }
-            function MovingSquare(){
-                draw("white");
-                x = x + 10;
-                draw("red");
-                ctx.fillRect(x,y,100,100);
-                if(x>=1800){
-                    clearInterval(timebis);
-                }
-            }
-        }
-        
     </script>
   </head>
-  <body onload="q3()">
-      <canvas id="forme" width="1900" height="960"></canvas>
+  <body onload="q1()">
+      <p id="cpt">
+      </p>
   </body>
 </html>
