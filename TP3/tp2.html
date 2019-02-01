@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <script>
+        function q2(){
+            var dx = 0;
+            var dy = 0;
+            var carre = document.getElementById("forme");
+            var ctx = carre.getContext("2d");
+            draw("red");
+            var timer = setInterval(MovingSquare,10);
+
+            function draw(color){
+                ctx.fillStyle = color;
+                ctx.fillRect(dx,dy,100,100);
+            }
+            function MovingSquare(){
+                draw("white");
+                dx = dx + 10;
+                draw("red");
+                ctx.fillRect(dx,dy,100,100);
+                if(dx>=1790){
+                    clearInterval(timer);
+                }
+            }
+        }
+    </script>
+  </head>
+  <body onload="q2()">
+        <canvas id="forme" width="1900" height="960"></canvas>
+  </body>
+</html>

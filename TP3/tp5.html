@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <script>
+        function q5(){
+            for(var i = 1; i<=10; i++){
+                var timer = (i-1)*100;
+                var setter = setInterval(carrerouge(timer,"canvas"+i,setter));
+            }
+
+            function carrerouge(t, id, setter){
+                var dx = 0;
+                var dy = 0;
+                var carre = document.getElementById(id);
+                var ctx = carre.getContext("2d");
+                draw("red");
+                var timer = setInterval(MovingSquare,10);
+
+                function draw(color){
+                    ctx.fillStyle = color;
+                    ctx.fillRect(dx,dy,100,100);
+                }
+                function MovingSquare(){
+                    if(t>0){
+                        t = t - 1;
+                    }
+                    else{
+                        draw("white");
+                        dx = dx + 10;
+                        draw("red");
+                        ctx.fillRect(dx,dy,100,100);
+                        if(dx>=1790){
+                            clearInterval(timer);
+                        }
+                    }
+                }
+                clearInterval(setter);
+            }
+        }
+    </script>
+  </head>
+  <body onload="q5()">
+        <canvas id="canvas1" width="1900" height="100%"></canvas>
+        <canvas id="canvas2" width="1900" height="100%"></canvas>
+        <canvas id="canvas3" width="1900" height="100%"></canvas>
+        <canvas id="canvas4" width="1900" height="100%"></canvas>
+        <canvas id="canvas5" width="1900" height="100%"></canvas>
+        <canvas id="canvas6" width="1900" height="100%"></canvas>
+        <canvas id="canvas7" width="1900" height="100%"></canvas>
+        <canvas id="canvas8" width="1900" height="100%"></canvas>
+        <canvas id="canvas9" width="1900" height="100%"></canvas>
+        <canvas id="canvas10" width="1900" height="100%"></canvas>
+  </body>
+</html>
