@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <script>
+        function rollingcoin(){
+            x = 0;
+            y = 0;
+            var ctx = document.getElementById('canvas').getContext('2d');
+            var img = new Image();
+            img.src = 'images/coin-sprite-animation';
+            img.onload;
+            img.onload = function() {
+                ctx.drawImage(img, x, y);
+                if(x<1000){
+                    x = 0;
+                }
+                x = x + 100;
+                requestAnimationFrame(img.onload);
+            };
+        }
+    </script>
+  </head>
+  <body onload="rollingcoin()">
+        <canvas id="canvas" width="800" height="600"></canvas>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <script>
+        /*function pausecomp(millis) 
+                {
+                    var date = new Date();
+                    var curDate = null;
+                    do { 
+                        curDate = new Date(); 
+                    } while(curDate-date < millis);
+                } */
+
+        function redsquare(){
+            var dx = 0;
+            var dy = 0;
+            var carre = document.getElementById("forme");
+            var ctx = carre.getContext("2d");
+            draw("red");
+            var date = new Date();
+            MovingSquare();
+
+            function draw(color){
+                ctx.fillStyle = color;
+                ctx.fillRect(dx,dy,100,100);
+            }
+            function MovingSquare(){
+                var curDate = new Date();
+                diff = curDate - date;
+                if(diff<1000){
+                    draw("white");
+                    dx = dx + diff;
+                    draw("red");
+                    ctx.fillRect(dx,dy,100,100);
+                    date = curDate;
+                    if(dx<1790){
+                        requestAnimationFrame(MovingSquare);
+                    }
+                }
+                else{
+                    date = curDate;
+                    requestAnimationFrame(MovingSquare);
+                }
+            }
+        }
+    </script>
+  </head>
+  <body onload="redsquare()">
+        <canvas id="forme" width="1900" height="960"></canvas>
+  </body>
+</html>
