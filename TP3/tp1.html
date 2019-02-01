@@ -3,11 +3,9 @@
   <head>
     <meta charset="utf-8">
     <script>
-        function q1(){
-            var globaltimer = 10;
-            var timer = setInterval(Decreasing,1000);
-            document.getElementById("cpt").innerHTML = "compteur = "+globaltimer;
-            function Decreasing(){
+        var globaltimer = 10;
+        var timer = setInterval(Decreasing,1000);
+        function Decreasing(){
                 if(globaltimer>=0){
                     document.getElementById("cpt").innerHTML = "compteur = "+globaltimer;
                     globaltimer = globaltimer - 1;
@@ -16,10 +14,9 @@
                     clearInterval(timer);
                 }
             }
-        }
     </script>
   </head>
-  <body onload="q1()">
+  <body>
       <p id="cpt">
       </p>
   </body>
