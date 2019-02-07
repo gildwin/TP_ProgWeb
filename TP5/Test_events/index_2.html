@@ -10,8 +10,42 @@
 <script>
 var x = 500;
 var y = 500;
+var xslicing = 0;
+var ultimate_position = 0;
 var rect = document.getElementById("darkRect");
 var ctx = rect.getContext("2d");
+
+var img = new Image();
+img.src = 'hero_walk_cycle_spritesheet_by_mrnoobtastic-d3defej.png'
+
+img.loadfix = function(x,y){
+  ctx.drawImage(img,128,256,128,128,x,y,128,128);
+}
+
+img.loadleft = function(x,y,slicing){
+  ctx.drawImage(img,slicing,0,128,128,x,y,128,128);
+}
+
+img.loadright = function(x,y,slicing){
+  ctx.drawImage(img,slicing,128,128,128,x,y,128,128);
+}
+
+img.loaddown = function(x,y,slicing){
+  ctx.drawImage(img,slicing,256,128,128,x,y,128,128);
+}
+
+img.loadup = function(x,y,slicing){
+  ctx.drawImage(img,slicing,384,128,128,x,y,128,128);
+}
+
+function slice(){
+  if(xslicing==384){
+    xslicing = 0;
+  }
+  else{
+    xslicing = xslicing + 128;
+  }
+}
 
 //  left | up | down | right
 var movement = [false,false,false,false];
@@ -26,43 +60,47 @@ function drawcenter(color){
   ctx.fillRect(x-100,y-50,200,100);
 }
 
+function clearCharacter(){
+  ctx.clearRect(x,y,128,128);
+}
+
 function moveX(dx){
-  drawcenter("white");
   if(dx>0){
     if(x<1700){
       x = x + dx;
+      slice();
     }
   }
   else{
     if(x> 100){
       x = x + dx;
+      slice();
     } 
   }
-  drawcenter("black");
 }
 
 function moveY(dy){
-  drawcenter("white");
   if(dy>0){
     if(y<850){
       y = y + dy;
+      slice();
     }
   }
   else{
     if(y> 50){
       y = y + dy;
+      slice();
     } 
   }
-  drawcenter("black");
 }
 
 //Lancement de la loop
-drawcenter("black");
 game();
 
 //Reconnaissance des mouvements souris
 document.getElementById("darkRect").addEventListener("mousedown", doMouseDown,false);
     function doMouseDown(event){
+        clearCharacter();
         var xtmp = event.clientX-x;
         moveX(xtmp);
         x = event.clientX;
@@ -73,33 +111,22 @@ window.addEventListener("keydown", function (event) {
   if (event.defaultPrevented) {
     return; // Should do nothing if the key event was already consumed.
   }
-  console.log(movement);
   switch (event.key) {
     case "ArrowDown":
-      // Do something for "down arrow" key press.
           movement[2] = true;
       break;
     case "ArrowUp":
-      // Do something for "up arrow" key press.
           movement[1] = true;
       break;
     case "ArrowLeft":
-      // Do something for "left arrow" key press.
           movement[0] = true;
       break;
     case "ArrowRight":
-      // Do something for "right arrow" key press.
           movement[3] = true;
       break;
     case "Enter":
-      // Do something for "enter" or "return" key press.
       break;
     case "Escape":
-      // Do something for "esc" key press.
-      draw("white");
-      x = 0;
-      y = 0;
-      draw("black");
       break;
     default:
       return; // Quit when this doesn't handle the key event.
@@ -117,28 +144,43 @@ window.addEventListener("keydown", function (event) {
     }
 
     function clear(){
-        drawcenter("white");
+        clearCharacter();
     }
 
     function update(){
       if(movement[0]){
+        ultimate_position = 0;
         moveX(-10);
         movement[0] = false;
       }
       if(movement[3]){
+        ultimate_position = 3;
         moveX(10);
         movement[3] = false;
       }
       if(movement[1]){
+        ultimate_position = 1;
         moveY(-10);
         movement[1] = false;
       }
       if(movement[2]){
+        ultimate_position = 2;
         moveY(10);
         movement[2] = false;
       }
     }
     function draw(){
-        drawcenter("black");
+      if(ultimate_position==0){
+        img.loadleft(x,y,xslicing);
+      }
+      if(ultimate_position==1){
+        img.loadup(x,y,xslicing);
+      }
+      if(ultimate_position==2){
+        img.loaddown(x,y,xslicing);
+      }
+      if(ultimate_position==3){
+        img.loadright(x,y,xslicing);
+      }
     }
     </script>
