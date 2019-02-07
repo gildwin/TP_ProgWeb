@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+    </head>
+    <body>
+      <canvas id="darkRect" width=1900 height=900></canvas>
+    </body>
+<script>
+var x = 500;
+var y = 500;
+var rect = document.getElementById("darkRect");
+var ctx = rect.getContext("2d");
+
+//  left | up | down | right
+var movement = [false,false,false,false];
+
+function draw(color){
+  ctx.fillStyle = color;
+  ctx.fillRect(x,y,200,100);
+}
+
+function drawcenter(color){
+  ctx.fillStyle = color;
+  ctx.fillRect(x-100,y-50,200,100);
+}
+
+function moveX(dx){
+  drawcenter("white");
+  if(dx>0){
+    if(x<1700){
+      x = x + dx;
+    }
+  }
+  else{
+    if(x> 100){
+      x = x + dx;
+    } 
+  }
+  drawcenter("black");
+}
+
+function moveY(dy){
+  drawcenter("white");
+  if(dy>0){
+    if(y<850){
+      y = y + dy;
+    }
+  }
+  else{
+    if(y> 50){
+      y = y + dy;
+    } 
+  }
+  drawcenter("black");
+}
+
+//Lancement de la loop
+drawcenter("black");
+game();
+
+//Reconnaissance des mouvements souris
+document.getElementById("darkRect").addEventListener("mousedown", doMouseDown,false);
+    function doMouseDown(event){
+        var xtmp = event.clientX-x;
+        moveX(xtmp);
+        x = event.clientX;
+    }
+
+//Reconnaissance des mouvements clavier
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Should do nothing if the key event was already consumed.
+  }
+  console.log(movement);
+  switch (event.key) {
+    case "ArrowDown":
+      // Do something for "down arrow" key press.
+          movement[2] = true;
+      break;
+    case "ArrowUp":
+      // Do something for "up arrow" key press.
+          movement[1] = true;
+      break;
+    case "ArrowLeft":
+      // Do something for "left arrow" key press.
+          movement[0] = true;
+      break;
+    case "ArrowRight":
+      // Do something for "right arrow" key press.
+          movement[3] = true;
+      break;
+    case "Enter":
+      // Do something for "enter" or "return" key press.
+      break;
+    case "Escape":
+      // Do something for "esc" key press.
+      draw("white");
+      x = 0;
+      y = 0;
+      draw("black");
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Consume the event for suppressing "double action".
+  event.preventDefault();
+}, true);
+
+    function game(){
+      clear();
+      update();
+      draw();
+      requestAnimationFrame(game);
+    }
+
+    function clear(){
+        drawcenter("white");
+    }
+
+    function update(){
+      if(movement[0]){
+        moveX(-10);
+        movement[0] = false;
+      }
+      if(movement[3]){
+        moveX(10);
+        movement[3] = false;
+      }
+      if(movement[1]){
+        moveY(-10);
+        movement[1] = false;
+      }
+      if(movement[2]){
+        moveY(10);
+        movement[2] = false;
+      }
+    }
+    function draw(){
+        drawcenter("black");
+    }
+    </script>
